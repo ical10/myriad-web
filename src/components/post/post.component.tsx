@@ -50,7 +50,7 @@ export default function PostComponent({ balanceDetails, post, defaultExpanded = 
   const style = useStyles();
 
   const router = useRouter();
-  const { detail } = useSocialDetail(post);
+  const { loading, detail } = useSocialDetail(post);
   const {
     state: { user }
   } = useUser();
@@ -81,18 +81,14 @@ export default function PostComponent({ balanceDetails, post, defaultExpanded = 
       return;
     }
 
+    const url = getPlatformUrl();
+
     switch (post.platform) {
-      case 'twitter':
-        window.open(`https://twitter.com/${post.platformUser.username}`, '_blank');
-        break;
-      case 'reddit':
-        window.open(`https://reddit.com/user/${post.platformUser.username}`, '_blank');
-        break;
       case 'myriad':
         router.push(post.platformUser.platform_account_id);
         break;
       default:
-        window.open(post.link, '_blank');
+        window.open(url, '_blank');
         break;
     }
   };
@@ -142,6 +138,8 @@ export default function PostComponent({ balanceDetails, post, defaultExpanded = 
 
     return <PostAvatarComponent origin={post.platform} avatar={avatarUrl} onClick={openContentSource} />;
   };
+
+  if (loading) return null;
 
   return (
     <>

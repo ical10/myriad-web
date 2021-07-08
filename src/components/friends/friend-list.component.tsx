@@ -95,9 +95,9 @@ const Friends = ({ user }: Props) => {
             <List className={style.list}>
               {state.friends.map(request => {
                 return (
-                  <>
+                  <div key={request.id}>
                     {user.id !== request.requestorId && (
-                      <ListItem key={request.id} className={style.item} alignItems="flex-start">
+                      <ListItem className={style.item} alignItems="flex-start">
                         <ListItemAvatar>
                           <Avatar alt={request.requestor.name} src={request.requestor.profilePictureURL} />
                         </ListItemAvatar>
@@ -113,7 +113,7 @@ const Friends = ({ user }: Props) => {
                     )}
 
                     {user.id !== request.friendId && (
-                      <ListItem key={request.id} className={style.item} alignItems="flex-start">
+                      <ListItem className={style.item} alignItems="flex-start">
                         <ListItemAvatar>
                           <Avatar alt={request.friend.name} src={request.friend.profilePictureURL} />
                         </ListItemAvatar>
@@ -127,7 +127,7 @@ const Friends = ({ user }: Props) => {
                         </ListItemSecondaryAction>
                       </ListItem>
                     )}
-                  </>
+                  </div>
                 );
               })}
             </List>
